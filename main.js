@@ -1,3 +1,4 @@
+require('v8-compile-cache');
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const dotenv = require('dotenv');
