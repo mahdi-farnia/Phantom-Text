@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Phantom Text</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Clear module for using jquery -->
+    <script>
+      if (typeof module === 'object') {
+        window.module = module;
+        module = undefined;
+      }
+    </script>
+    <script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <label for="is_fast_mode">
+      <input type="checkbox" id="is_fast_mode" />
+      Use Fast Encode
+    </label>
+    <textarea id="encode_field" placeholder="Encode"></textarea>
+    <textarea id="output_field" placeholder="Output"></textarea>
+    <!-- Give It back -->
+    <script>
+      if (window.module) module = window.module;
+    </script>
+  </body>
+</html>
