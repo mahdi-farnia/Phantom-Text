@@ -1,11 +1,12 @@
 const { ipcRenderer } = require('electron');
+const { join: joinPath } = require('path');
+const Events = require(joinPath(__dirname, '../modules/Events.js'));
 const encoder = new TextEncoder();
 const { clipboard } = navigator;
 
 $(() => {
   const input = $('#encode_field');
   const output = $('#output_field');
-  const $_window = $(window);
 
   // Real time encode
   input.on('input', encodeInputText);
@@ -17,9 +18,9 @@ $(() => {
     const isFastModeEnabled = $(this).prop('checked');
 
     if (isFastModeEnabled) {
-      $_window.on('focus', fastEncode);
+      ipcRenderer.on(Events.BROWSER_FOCUSED, fastEncode);
     } else {
-      $_window.off('focus', fastEncode);
+      ipcRenderer.off(Events.BROWSER_FOCUSED, fastEncode);
     }
   });
 

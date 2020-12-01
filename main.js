@@ -2,6 +2,7 @@ require('v8-compile-cache');
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const dotenv = require('dotenv');
+const Events = require('./modules/Events');
 
 // Set Environment Variable
 dotenv.config({
@@ -40,3 +41,9 @@ app.whenReady().then(Ready);
 
 // On MacOS After Activate Window, Window Will Restore
 app.on('activate', () => mainWindow.isMinimizable() && mainWindow.restore());
+
+app.on('browser-window-focus', () => sendToMain(Events.BROWSER_FOCUSED));
+
+function sendToMain(channel, ...data) {
+  mainWindow.webContents.send(channel, ...data);
+}
