@@ -8,7 +8,10 @@ dotenv.config({
   path: path.join(__dirname, '.env')
 });
 
-// Main Window
+/**
+ * Main Window
+ * @type { BrowserWindow }
+ */
 let mainWindow;
 
 const Ready = () => {
