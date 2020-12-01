@@ -1,10 +1,30 @@
+@font-face {
+  src: url('./assets/fonts/Nunito-Light.ttf') format('truetype');
+  font-family: 'Nunito';
+  font-weight: 300;
+}
+
+@font-face {
+  src: url('./assets/fonts/Nunito-Regular.ttf') format('truetype');
+  font-family: 'Nunito';
+  font-weight: 400;
+}
+
+@font-face {
+  src: url('./assets/fonts/Nunito-SemiBold.ttf') format('truetype');
+  font-family: 'Nunito';
+  font-weight: 600;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
 }
 
-body {
-  background: #000;
-  color: white;
+body,
+input,
+button {
+  font-weight: 300;
 }
