@@ -34,3 +34,6 @@ const Ready = () => {
 
 // After Chrome Opened, Load App
 app.whenReady().then(Ready);
+
+// On MacOS After Activate Window, Window Will Restore
+app.on('activate', () => mainWindow.isMinimizable() && mainWindow.restore());
