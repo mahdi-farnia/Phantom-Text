@@ -11,15 +11,44 @@
       }
     </script>
     <script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
-    <script src="index.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/theme.js"></script>
   </head>
   <body>
-    <label for="is_fast_mode">
-      <input type="checkbox" id="is_fast_mode" />
-      Use Fast Encode
-    </label>
-    <textarea id="encode_field" placeholder="Encode"></textarea>
-    <textarea id="output_field" placeholder="Output"></textarea>
+    <nav id="menu">
+      <ul>
+        <li id="expand-menu" title="Expand Menu">
+          <label class="icon expand-icon pos-relative fill-parent"> </label>
+        </li>
+        <li id="app-options" title="Options">
+          <label class="icon option-icon pos-relative fill-parent"> </label>
+        </li>
+        <li id="saved-script" title="Saved Scripts">
+          <label class="icon script-icon"></label>
+        </li>
+      </ul>
+      <ul>
+        <li title="Chnage Theme" class="padding-less">
+          <input
+            type="checkbox"
+            id="change_theme"
+            class="change_theme-button fill-parent pointer"
+          />
+          <label class="icon change_theme-icon pos-relative"></label>
+        </li>
+        <li title="About" id="about_app">
+          <label class="icon about-icon fill-parent pos-relative"></label>
+        </li>
+      </ul>
+    </nav>
+    <main>
+      <label for="is_fast_mode">
+        <input type="checkbox" id="is_fast_mode" />
+        Use Fast Encode
+      </label>
+      <textarea id="encode_field" placeholder="Encode"></textarea>
+      <textarea id="output_field" placeholder="Output"></textarea>
+    </main>
     <!-- Give It back -->
     <script>
       if (window.module) module = window.module;

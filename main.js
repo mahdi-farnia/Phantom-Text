@@ -1,5 +1,5 @@
 require('v8-compile-cache');
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, nativeTheme } = require('electron');
 const path = require('path');
 const dotenv = require('dotenv');
 const Events = require('./modules/Events');
@@ -42,7 +42,16 @@ app.whenReady().then(Ready);
 // On MacOS After Activate Window, Window Will Restore
 app.on('activate', () => mainWindow.isMinimizable() && mainWindow.restore());
 
+// Use When Window Focused Fast Encode
 app.on('browser-window-focus', () => sendToMain(Events.BROWSER_FOCUSED));
+
+// Detect Theme Change
+nativeTheme.on('updated', () => {
+  sendToMain(
+    Events.SYSTEM_THEME_CHANGED,
+    nativeTheme.shouldUseDarkColors ? 'dark' : 'light'
+  );
+});
 
 function sendToMain(channel, ...data) {
   mainWindow.webContents.send(channel, ...data);

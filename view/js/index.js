@@ -1,4 +1,4 @@
-const { ipcRenderer } = require('electron');
+const { ipcRenderer: ipc } = require('electron');
 const { join: joinPath } = require('path');
 const Events = require(joinPath(__dirname, '../modules/Events.js'));
 const encoder = new TextEncoder();
@@ -18,9 +18,9 @@ $(() => {
     const isFastModeEnabled = $(this).prop('checked');
 
     if (isFastModeEnabled) {
-      ipcRenderer.on(Events.BROWSER_FOCUSED, fastEncode);
+      ipc.on(Events.BROWSER_FOCUSED, fastEncode);
     } else {
-      ipcRenderer.off(Events.BROWSER_FOCUSED, fastEncode);
+      ipc.off(Events.BROWSER_FOCUSED, fastEncode);
     }
   });
 
