@@ -16,16 +16,25 @@ dotenv.config({
 let mainWindow;
 
 const Ready = () => {
-  const { WIDTH, HEIGHT, MAIN_HTML_FILE_PATH } = process.env;
+  const {
+    WIDTH,
+    HEIGHT,
+    MIN_WIDTH,
+    MIN_HEIGHT,
+    MAIN_HTML_FILE_PATH
+  } = process.env;
 
   mainWindow = new BrowserWindow({
     width: +WIDTH,
     height: +HEIGHT,
+    minWidth: +MIN_WIDTH,
+    minHeight: +MIN_HEIGHT,
     title: 'Phantom Text',
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      spellcheck: false
+      spellcheck: false,
+      enableRemoteModule: true
     }
   });
 

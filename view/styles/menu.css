@@ -1,8 +1,10 @@
 #menu {
   width: 50px;
+  min-width: 50px;
   height: 100vh;
   background-color: var(--bg-color);
-  box-shadow: 0 0 10px 0 var(--secondary-color);
+  z-index: 2;
+  border-right: 1px solid var(--border-color);
 }
 
 #menu > ul {

@@ -32,8 +32,8 @@ $(() => {
   output.on('input', decodeInputText);
 
   // Read Options
-  const useFastEncode = $('#use_fast_encode');
-  const useFastDecode = $('#use_fast_decode');
+  const useFastEncode = $('#use_fast_encode'),
+    useFastDecode = $('#use_fast_decode');
   let isFastEncodeEnabled = false,
     isFastDecodeEnabled = false;
 
@@ -70,7 +70,7 @@ $(() => {
     input.val(decodeText(txt));
   }
 
-  // Encode Clipboard Data On App Actiavte And Copy
+  // Encode/Decode Clipboard Data On App Actiavte And Copy It
   async function fastEncode() {
     const data = await clipboard.readText();
 

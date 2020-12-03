@@ -15,9 +15,10 @@
     <script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
     <script src="js/index.js"></script>
     <script src="js/theme.js"></script>
+    <style id="theme_settings"></style>
   </head>
   <body>
-    <nav id="menu" class="flex-between flex-column">
+    <nav id="menu" class="flex-between flex-column pos-relative">
       <ul>
         <li id="expand-menu" title="Expand Menu">
           <label class="icon expand-icon pos-relative fill-parent"> </label>
@@ -43,10 +44,10 @@
         </li>
       </ul>
     </nav>
-    <main>
+    <main class="flex-center flex-column">
       <!-- Encode -->
-      <section class="field-section">
-        <header class="field-toolbar">
+      <section class="field-section flex-center flex-column">
+        <header class="pos-relative field-toolbar flex-between">
           <div class="fast-switch-container flex-center">
             <div class="fast-switch-wrapper pos-relative">
               <input
@@ -58,6 +59,14 @@
             </div>
             <label for="use_fast_encode">Use Fast Encode</label>
           </div>
+          <ul class="field-action-menu flex-center">
+            <li id="field_copy" class="pointer">
+              <button class="action-button">Copy</button>
+            </li>
+            <li id="field_clear" class="pointer">
+              <button class="action-button">Clear All</button>
+            </li>
+          </ul>
         </header>
         <textarea
           id="encode_field"
@@ -66,8 +75,8 @@
         ></textarea>
       </section>
       <!-- Decode -->
-      <section class="field-section">
-        <header class="field-toolbar">
+      <section class="field-section flex-center flex-column">
+        <header class="pos-relative field-toolbar flex-between">
           <div class="fast-switch-container flex-center">
             <div class="fast-switch-wrapper pos-relative">
               <input
@@ -79,6 +88,14 @@
             </div>
             <label for="use_fast_decode">Use Fast Decode</label>
           </div>
+          <ul class="field-action-menu flex-center">
+            <li id="field_copy" class="pointer">
+              <button class="action-button">Copy</button>
+            </li>
+            <li id="field_clear" class="pointer">
+              <button class="action-button">Clear All</button>
+            </li>
+          </ul>
         </header>
         <textarea
           id="output_field"

@@ -1,4 +1,6 @@
 .field-section {
+  width: 100%;
+  flex: 1;
   --toolbar-height: 48px;
 }
 
@@ -6,6 +8,8 @@
   width: 100%;
   height: var(--toolbar-height);
   background-image: var(--toolbar-bg-color);
+  padding: 0 10px;
+  box-shadow: 0 4px 10px var(--secondary-color);
 }
 
 .fast-switch-container {
@@ -14,7 +18,10 @@
 
 .fast-switch-container > label {
   font-size: 16px;
+  font-weight: 600;
   padding-left: 10px;
+  user-select: none;
+  cursor: pointer;
 }
 
 .fast-switch-container .fast-switch-wrapper {
@@ -22,8 +29,32 @@
   display: inline-block;
 }
 
+.fast-switch-container .fast-switch-wrapper .change_theme-icon::before {
+  border-radius: 8px;
+}
+
+.field-action-menu .action-button {
+  margin: 0 5px;
+  padding: 6px 12px;
+  font-size: 16px;
+  border-radius: 0.5rem;
+  box-shadow: var(--button-shadow);
+  user-select: none;
+  cursor: inherit;
+}
+
+.field-action-menu .action-button:active {
+  box-shadow: var(--button-shadow-reverse);
+}
+
 .field {
+  width: 100%;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  flex: 1;
+  font-size: 16px;
+  font-family: monospace;
   user-select: all;
   resize: none;
-  padding: 4px;
+  padding: 6px 6px 4px;
 }
