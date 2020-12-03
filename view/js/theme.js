@@ -13,7 +13,10 @@ $(() => {
      * @param { "dark" | "light" } which
      */
     (e, which) => {
-      themeChanger.prop('checked', which === 'dark' ? true : false);
+      const isDark = themeChanger.prop('checked');
+      const isSystemDark = which === 'dark' ? true : false;
+
+      if (isDark !== isSystemDark) themeChanger.trigger('click');
     }
   );
 
@@ -31,13 +34,17 @@ $(() => {
       $(document.documentElement).css({
         '--text-color': '#f1f1f1',
         '--bg-color': '#2d2d2d',
-        '--shadow-color': '#1b1b1b'
+        '--secondary-color': '#1b1b1b',
+        '--toolbar-bg-color':
+          'linear-gradient(0deg, rgb(86, 86, 86), rgb(130, 130, 130))'
       });
     } else {
       $(document.documentElement).css({
         '--text-color': '#2d2d2d',
         '--bg-color': '#fff',
-        '--shadow-color': '#eee'
+        '--secondary-color': '#eee',
+        '--toolbar-bg-color':
+          'linear-gradient(0deg, rgb(230 230 230), rgb(239 239 239))'
       });
     }
   }

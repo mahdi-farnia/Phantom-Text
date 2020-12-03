@@ -1,0 +1,29 @@
+.field-section {
+  --toolbar-height: 48px;
+}
+
+.field-toolbar {
+  width: 100%;
+  height: var(--toolbar-height);
+  background-image: var(--toolbar-bg-color);
+}
+
+.fast-switch-container {
+  width: 180px;
+}
+
+.fast-switch-container > label {
+  font-size: 16px;
+  padding-left: 10px;
+}
+
+.fast-switch-container .fast-switch-wrapper {
+  width: 40px;
+  display: inline-block;
+}
+
+.field {
+  user-select: all;
+  resize: none;
+  padding: 4px;
+}

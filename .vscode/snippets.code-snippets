@@ -79,6 +79,11 @@
   "Secondary Color": {
     "scope": "css, scss",
     "prefix": ["secondary", "shadow", "var"],
-    "body": "var(--shadow-color)"
+    "body": "var(--secondary-color)"
+  },
+  "Field Toolbar Bg": {
+    "scope": "css, scss",
+    "prefix": ["toolbar", "var"],
+    "body": "var(--toolbar-bg-color)"
   }
 }

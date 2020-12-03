@@ -12,9 +12,9 @@ $(() => {
   input.on('input', encodeInputText);
 
   // Read Options
-  const fastModeStatus = $('#is_fast_mode');
+  const useFastEncode = $('#use_fast_encode');
 
-  fastModeStatus.on('click', function () {
+  useFastEncode.on('click', function () {
     const isFastModeEnabled = $(this).prop('checked');
 
     if (isFastModeEnabled) {

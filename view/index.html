@@ -2,7 +2,9 @@
 <html lang="en">
   <head>
     <title>Phantom Text</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles/global.css" />
+    <link rel="stylesheet" href="styles/menu.css" />
+    <link rel="stylesheet" href="styles/main.css" />
     <!-- Clear module for using jquery -->
     <script>
       if (typeof module === 'object') {
@@ -15,7 +17,7 @@
     <script src="js/theme.js"></script>
   </head>
   <body>
-    <nav id="menu">
+    <nav id="menu" class="flex-between flex-column">
       <ul>
         <li id="expand-menu" title="Expand Menu">
           <label class="icon expand-icon pos-relative fill-parent"> </label>
@@ -42,12 +44,50 @@
       </ul>
     </nav>
     <main>
-      <label for="is_fast_mode">
-        <input type="checkbox" id="is_fast_mode" />
-        Use Fast Encode
-      </label>
-      <textarea id="encode_field" placeholder="Encode"></textarea>
-      <textarea id="output_field" placeholder="Output"></textarea>
+      <!-- Encode -->
+      <section class="field-section">
+        <header class="field-toolbar">
+          <div class="fast-switch-container flex-center">
+            <div class="fast-switch-wrapper pos-relative">
+              <input
+                type="radio"
+                id="use_fast_encode"
+                name="fast_mode_switch"
+                class="change_theme-button fill-parent pointer"
+              />
+              <label class="icon change_theme-icon pos-relative"></label>
+            </div>
+            <label for="use_fast_encode">Use Fast Encode</label>
+          </div>
+        </header>
+        <textarea
+          id="encode_field"
+          placeholder="Encode"
+          class="field"
+        ></textarea>
+      </section>
+      <!-- Decode -->
+      <section class="field-section">
+        <header class="field-toolbar">
+          <div class="fast-switch-container flex-center">
+            <div class="fast-switch-wrapper pos-relative">
+              <input
+                type="radio"
+                id="use_fast_decode"
+                name="fast_mode_switch"
+                class="change_theme-button fill-parent pointer"
+              />
+              <label class="icon change_theme-icon pos-relative"></label>
+            </div>
+            <label for="use_fast_decode">Use Fast Decode</label>
+          </div>
+        </header>
+        <textarea
+          id="output_field"
+          placeholder="Decode"
+          class="field"
+        ></textarea>
+      </section>
     </main>
     <!-- Give It back -->
     <script>

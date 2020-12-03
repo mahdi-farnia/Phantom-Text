@@ -1,17 +1,17 @@
 @font-face {
-  src: url('./assets/fonts/Nunito-Light.ttf') format('truetype');
+  src: url('../assets/fonts/Nunito-Light.ttf') format('truetype');
   font-family: 'Nunito';
   font-weight: 300;
 }
 
 @font-face {
-  src: url('./assets/fonts/Nunito-Regular.ttf') format('truetype');
+  src: url('../assets/fonts/Nunito-Regular.ttf') format('truetype');
   font-family: 'Nunito';
   font-weight: 400;
 }
 
 @font-face {
-  src: url('./assets/fonts/Nunito-SemiBold.ttf') format('truetype');
+  src: url('../assets/fonts/Nunito-SemiBold.ttf') format('truetype');
   font-family: 'Nunito';
   font-weight: 600;
 }
@@ -31,7 +31,8 @@ button {
 }
 
 input,
-button {
+button,
+textarea {
   outline: none;
   border: none;
 }
@@ -40,14 +41,20 @@ button {
 :root {
   --text-color: #2d2d2d;
   --bg-color: #fff;
-  --shadow-color: #eee;
+  --secondary-color: #eee;
+  --toolbar-bg-color: linear-gradient(
+    0deg,
+    rgb(230, 230, 230),
+    rgb(239, 239, 239)
+  );
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --text-color: #f1f1f1;
     --bg-color: #2d2d2d;
-    --shadow-color: #1b1b1b;
+    --secondary-color: #1b1b1b;
+    --toolbar-bg: linear-gradient(0deg, rgb(86, 86, 86), rgb(130, 130, 130));
   }
 }
 
@@ -66,10 +73,6 @@ body > main {
   height: 100%;
 }
 
-.keep-child {
-  position: relative;
-}
-
 #menu li,
 .pointer {
   cursor: pointer;
@@ -77,6 +80,24 @@ body > main {
 
 .pos-relative {
   position: relative;
+}
+
+.flex-between,
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+
+.flex-center {
+  justify-content: center;
+}
+
+.flex-between {
+  justify-content: space-between;
+}
+
+.flex-column {
+  flex-direction: column;
 }
 
 .dis-select,
@@ -194,7 +215,6 @@ body > main {
   height: 20px;
   background-image: linear-gradient(0deg, #525252, #232323);
   border-radius: 20px;
-  margin: 5px 0;
 }
 
 .change_theme-icon::before {
@@ -222,130 +242,13 @@ body > main {
   z-index: 2;
   border-radius: 50%;
   border: 1px solid gray;
-  transition: transform 0.3s ease;
+  transition: left 0.3s ease-out;
 }
 
 .change_theme-button:checked + .icon::after {
-  transform: translateX(19px);
+  left: calc(100% - 20px);
 }
 
 .change_theme-button:checked + .icon::before {
   opacity: 1;
-}
-
-#menu {
-  width: 50px;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  background-color: var(--bg-color);
-  box-shadow: 0 0 10px 0 var(--shadow-color);
-}
-
-#menu > ul {
-  width: 100%;
-  padding: 10px 0;
-}
-
-#menu li {
-  width: 100%;
-  height: 50px;
-  padding: 12px;
-  position: relative;
-}
-
-#menu li::before {
-  content: '';
-  width: 4px;
-  height: 100%;
-  background-color: var(--text-color);
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-#menu li:hover::before {
-  opacity: 1;
-}
-
-#menu li:hover .expand-icon {
-  animation-name: nav_move-arrow;
-}
-
-@keyframes nav_move-arrow {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-
-  50%,
-  80% {
-    transform: translateX(5px);
-  }
-}
-
-#menu li:hover .option-icon {
-  animation-name: nav_scale-check;
-}
-
-@keyframes nav_scale-check {
-  0% {
-    transform: scale(0.4);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-}
-
-#menu li:hover .script-icon {
-  animation: nav_fade-script 0.5s ease forwards;
-}
-
-@keyframes nav_fade-script {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  33% {
-    transform: translateY(-5px);
-  }
-
-  66% {
-    transform: translateY(5px);
-  }
-}
-
-#menu li.padding-less {
-  padding: 10px 6px;
-}
-
-#menu li:hover .about-icon {
-  animation: nav_jiggle-icon 0.4s ease 2;
-}
-
-@keyframes nav_jiggle-icon {
-  0%,
-  100% {
-    transform: rotate(10deg);
-  }
-
-  25% {
-    transform: rotate(-10deg);
-  }
-
-  50% {
-    transform: rotate(10deg);
-  }
-
-  75% {
-    transform: rotate(-10deg);
-  }
 }
