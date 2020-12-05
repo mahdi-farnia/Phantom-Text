@@ -4,5 +4,5 @@ const dotenv = require('dotenv');
 
 // Set Environment Variable
 dotenv.config({
-  path: joinPath(__dirname, '.env')
+  path: joinPath(__dirname, '../.env')
 });
