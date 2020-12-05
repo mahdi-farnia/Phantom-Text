@@ -1,5 +1,5 @@
 require('v8-compile-cache');
-const { app, BrowserWindow, nativeTheme } = require('electron');
+const { app, BrowserWindow, nativeTheme } = require('electron/main');
 const path = require('path');
 const dotenv = require('dotenv');
 const Events = require('./modules/Events');
@@ -61,6 +61,9 @@ nativeTheme.on('updated', () => {
     nativeTheme.shouldUseDarkColors ? 'dark' : 'light'
   );
 });
+
+// IPC
+require('./modules/ipc')(sendToMain);
 
 function sendToMain(channel, ...data) {
   mainWindow.webContents.send(channel, ...data);

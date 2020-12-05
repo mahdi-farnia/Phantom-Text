@@ -1,27 +1,7 @@
 const { ipcRenderer: ipc } = require('electron');
 const { join: joinPath } = require('path');
 const Events = require(joinPath(__dirname, '../modules/Events.js'));
-const encoder = new TextEncoder();
-const __decoder__ = new TextDecoder('utf-8');
-/**
- * Decode String And Returns It
- * @param { string } txt
- * @returns { string }
- */
-const decodeText = (txt) => {
-  const arr = txt
-    .trim()
-    .split(',')
-    .map((strNumber) => parseInt(strNumber));
-
-  return (
-    __decoder__
-      .decode(new Uint8Array(arr))
-      // Avoid Null Char
-      .replace(/\0/g, '')
-  );
-};
-const { clipboard } = navigator;
+// const { clipboard } = navigator;
 
 $(() => {
   const input = $('#encode_field');
@@ -57,29 +37,38 @@ $(() => {
     else ipc.off(Events.BROWSER_FOCUSED, fastDecode);
   });
 
+  // Write to output
+  ipc.on(Events.GET_ENCODED, (e, data) => {
+    output.val(data);
+  });
+
+  // write data to input
+  ipc.on(Events.GET_DECODED, (e, data) => {
+    input.val(data);
+  });
+
   /** Fn */
 
   function encodeInputText() {
-    const encoded = encoder.encode($(this).val().toString());
+    const txt = $(this).val().toString();
 
-    output.val(encoded.toString());
+    ipc.send(Events.REQUEST_ENCODE, txt);
   }
 
   function decodeInputText() {
     const txt = $(this).val().toString();
-    input.val(decodeText(txt));
+
+    ipc.send(Events.REQUEST_DECODE, txt);
   }
 
   // Encode/Decode Clipboard Data On App Actiavte And Copy It
   async function fastEncode() {
-    const data = await clipboard.readText();
-
-    clipboard.writeText(encoder.encode(data).toString());
+    // const data = await clipboard.readText();
+    // clipboard.writeText(encoder.encode(data).toString());
   }
 
   async function fastDecode() {
-    const txt = await clipboard.readText();
-
-    clipboard.writeText(decodeText(txt));
+    // const txt = await clipboard.readText();
+    // clipboard.writeText(decodeText(txt));
   }
 });
