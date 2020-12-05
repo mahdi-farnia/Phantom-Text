@@ -1,13 +1,6 @@
-require('v8-compile-cache');
+require('./modules/setup');
 const { app, BrowserWindow, nativeTheme } = require('electron/main');
-const path = require('path');
-const dotenv = require('dotenv');
 const Events = require('./modules/Events');
-
-// Set Environment Variable
-dotenv.config({
-  path: path.join(__dirname, '.env')
-});
 
 /**
  * Main Window
@@ -45,7 +38,7 @@ const Ready = () => {
   mainWindow.on('close', () => app.quit());
 };
 
-// After Chrome Opened, Load App
+// Load App, After Chrome Opened
 app.whenReady().then(Ready);
 
 // On MacOS After Activate Window, Window Will Restore
@@ -65,6 +58,7 @@ nativeTheme.on('updated', () => {
 // IPC
 require('./modules/ipc')(sendToMain);
 
+// Send Message To Main Window
 function sendToMain(channel, ...data) {
   mainWindow.webContents.send(channel, ...data);
 }
