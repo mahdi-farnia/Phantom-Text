@@ -1,11 +1,12 @@
 const { ipcRenderer: ipc } = require('electron');
 const { join: joinPath } = require('path');
 const Events = require(joinPath(__dirname, '../modules/Events.js'));
-// const { clipboard } = navigator;
+const { clipboard } = navigator;
 
 $(() => {
   const input = $('#encode_field');
   const output = $('#output_field');
+  let copyTextToClipboard = false;
 
   // Real time encode
   input.on('input', encodeInputText);
@@ -37,13 +38,29 @@ $(() => {
     else ipc.off(Events.BROWSER_FOCUSED, fastDecode);
   });
 
-  // Write to output
-  ipc.on(Events.GET_ENCODED, (e, data) => {
+  // Get Encode
+  ipc.on(Events.GET_ENCODED, (e, { data, error }) => {
+    if (copyTextToClipboard) {
+      // if input was empty
+      if (!error) clipboard.writeText(data);
+
+      copyTextToClipboard = false;
+      return;
+    }
+
     output.val(data);
   });
 
-  // write data to input
-  ipc.on(Events.GET_DECODED, (e, data) => {
+  // Get Decode
+  ipc.on(Events.GET_DECODED, (e, { data, error }) => {
+    if (copyTextToClipboard) {
+      // If Non-UTF-8 Decoded Prevent Copy -> ""
+      if (!error) clipboard.writeText(data);
+
+      copyTextToClipboard = false;
+      return;
+    }
+
     input.val(data);
   });
 
@@ -61,14 +78,19 @@ $(() => {
     ipc.send(Events.REQUEST_DECODE, txt);
   }
 
-  // Encode/Decode Clipboard Data On App Actiavte And Copy It
   async function fastEncode() {
-    // const data = await clipboard.readText();
-    // clipboard.writeText(encoder.encode(data).toString());
+    const data = await clipboard.readText();
+
+    ipc.send(Events.REQUEST_ENCODE, data);
+
+    copyTextToClipboard = true;
   }
 
   async function fastDecode() {
-    // const txt = await clipboard.readText();
-    // clipboard.writeText(decodeText(txt));
+    const data = await clipboard.readText();
+
+    ipc.send(Events.REQUEST_DECODE, data);
+
+    copyTextToClipboard = true;
   }
 });

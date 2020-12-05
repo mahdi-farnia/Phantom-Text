@@ -4,9 +4,15 @@ const { Rabbit, enc } = CryptoJs;
 
 module.exports = {
   encode(text) {
-    return Rabbit.encrypt(text, 'test').toString();
+    if (!text) return { error: true };
+
+    return { data: Rabbit.encrypt(text, 'test').toString() };
   },
   decode(text) {
-    return Rabbit.decrypt(text, 'test').toString(enc.Utf8);
+    try {
+      return { data: Rabbit.decrypt(text, 'test').toString(enc.Utf8) };
+    } catch (err) {
+      return { error: true };
+    }
   }
 };
