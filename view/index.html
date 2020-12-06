@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="styles/global.css" />
     <link rel="stylesheet" href="styles/menu.css" />
     <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/modal.css" />
     <!-- Clear module for using jquery -->
     <script>
       if (typeof module === 'object') {
@@ -15,6 +16,7 @@
     <script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
     <script src="js/index.js"></script>
     <script src="js/theme.js"></script>
+    <script src="js/modal.js"></script>
     <style id="theme_settings"></style>
   </head>
   <body>
@@ -44,7 +46,15 @@
         </li>
       </ul>
     </nav>
-    <main class="flex-center flex-column">
+    <main class="flex-center flex-column pos-relative">
+      <aside id="modal">
+        <button id="modal_close">
+          <span class="line-1 dis-select"></span>
+          <span class="line-2 dis-select"></span>
+        </button>
+        <h3 id="modal_header" class="responsive-text"></h3>
+        <p id="modal_msg"></p>
+      </aside>
       <!-- Encode -->
       <section class="field-section flex-center flex-column">
         <header class="pos-relative field-toolbar flex-between">
