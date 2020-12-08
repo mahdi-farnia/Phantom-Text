@@ -2,9 +2,13 @@ const CryptoJs = require('crypto-js');
 
 const { Rabbit, enc } = CryptoJs;
 const error = { error: true };
-const KEY = 'test';
+let KEY = 'test';
 
 module.exports = {
+  setKey(key) {
+    KEY = key;
+    return this;
+  },
   encode(text) {
     if (!text) return error;
 
