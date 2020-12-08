@@ -26,14 +26,17 @@ $(() => {
   const encodeHeader = $('#encode_header'),
     decodeHeader = $('#decode_header'),
     useFastEncode = 'use_fast_encode',
+    manualEncodeButton = 'encode_manual-encode',
     copyEncoded = 'encode_field_copy',
     useFastDecode = 'use_fast_decode',
+    manualDecodeButton = 'decode_manual-encode',
     copyDecoded = 'decode_field_copy',
     clearEncoded = 'encode_field_clear',
     clearDecoded = 'decode_field_clear';
   // Read Options
   let isFastEncodeEnabled = false,
-    isFastDecodeEnabled = false;
+    isFastDecodeEnabled = false,
+    useManualTransferButton = false;
 
   encodeHeader.on('click', ({ target }) => {
     const $target = $(target);
@@ -41,6 +44,10 @@ $(() => {
     switch ($target.attr('id')) {
       case useFastEncode:
         useFastEncodeHandler.call($target);
+        return;
+
+      case manualEncodeButton:
+        if (useManualTransferButton) encodeInputText.call(input);
         return;
 
       case copyEncoded:
@@ -71,6 +78,10 @@ $(() => {
         useFastDecodeHandler.call($target);
         return;
 
+      case manualDecodeButton:
+        if (useManualTransferButton) decodeInputText.call(output);
+        return;
+
       case copyDecoded:
         clipboard.writeText(output.val().toString());
 
@@ -93,10 +104,14 @@ $(() => {
     if (isActive) {
       input.on('input', encodeInputText);
       output.on('input', decodeInputText);
+      useManualTransferButton = false;
     } else {
       input.off('input', encodeInputText);
       output.off('input', decodeInputText);
+      useManualTransferButton = true;
     }
+
+    ipc.send(Events.SET_MINIMUM_SIZE, { isLarger: useManualTransferButton });
   });
 
   // Get Encode

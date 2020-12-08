@@ -3,7 +3,8 @@ $(() => {
   const classList = {
     openPanel: 'open',
     goOptions: 'options',
-    goSavedScripts: 'saved-scripts'
+    goSavedScripts: 'saved-scripts',
+    showManualTransferButton: 'use-manual-button-transfer'
   };
 
   // Toggle Left Panel Buttons
@@ -46,10 +47,11 @@ $(() => {
     }
   });
 
-  const toggleRealtimeTransfer = 'use_realtime_transfer';
-  const toggleWindowAlwaysOnTop = 'use_always-on-top';
-  const goSavedScripts = 'dot_saved-script';
-  const goOptions = 'dot_options';
+  const toggleRealtimeTransfer = 'use_realtime_transfer',
+    toggleWindowAlwaysOnTop = 'use_always-on-top',
+    goSavedScripts = 'dot_saved-script',
+    goOptions = 'dot_options',
+    $body = $(document.body);
 
   const RealtimeStatusEvent = new $.Event('realtime-change', {
     isActive: null
@@ -61,6 +63,13 @@ $(() => {
         let isActive = (RealtimeStatusEvent.isActive = $(target).prop(
           'checked'
         ));
+
+        // Toggle Show Buttons
+        if (isActive) {
+          $body.removeClass(classList.showManualTransferButton);
+        } else {
+          $body.addClass(classList.showManualTransferButton);
+        }
 
         modal.show({
           msg: `Text Transform Is Now ${isActive ? 'On' : 'Off'}`,

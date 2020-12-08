@@ -60,6 +60,9 @@ require('./modules/ipc')({
   sendToMain,
   setAlwaysOnTop(flag) {
     mainWindow.setAlwaysOnTop(flag, 'pop-up-menu');
+  },
+  setMinSize({ height, width }) {
+    mainWindow.setMinimumSize(width, height);
   }
 });
 

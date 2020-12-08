@@ -1,3 +1,7 @@
+/**
+ * These Properties Should Be Unique But Values Are Optional
+ */
+
 module.exports = {
   APP_LOADED: 'event::dom_content_loaded',
   SYSTEM_INFO: 'data::process_platform',
@@ -7,5 +11,6 @@ module.exports = {
   REQUEST_DECODE: 'data::decode_text',
   GET_ENCODED: 'data::encoded_text',
   GET_DECODED: 'data:decoded_text',
-  ALWAYS_ON_TOP_CHANGE: 'event::window-always-on-top-change'
+  ALWAYS_ON_TOP_CHANGE: 'event::window_always-on-top-change',
+  SET_MINIMUM_SIZE: 'event::view_content_size_changed'
 };

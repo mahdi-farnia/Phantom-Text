@@ -85,6 +85,11 @@ body > #left-panel {
   height: 100vh;
 }
 
+/* Manual Transfer Buttons Activated */
+body.use-manual-button-transfer main {
+  min-width: 459px;
+}
+
 .fill-parent {
   width: 100%;
   height: 100%;
