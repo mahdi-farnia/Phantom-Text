@@ -75,8 +75,14 @@ body {
 
 body > main {
   width: 100%;
-  height: 100vh;
+  min-width: 370px;
   flex: 1;
+}
+
+body > main,
+body > #menu,
+body > #left-panel {
+  height: 100vh;
 }
 
 .fill-parent {
@@ -118,32 +124,6 @@ body > main {
 
 .icon {
   display: block;
-}
-
-.expand-icon {
-  animation: 1.5s ease infinite;
-}
-
-.expand-icon::after {
-  content: '';
-  width: 10px;
-  height: 10px;
-  position: absolute;
-  top: 6px;
-  right: 2px;
-  border-top: 2px solid var(--text-color);
-  border-right: 2px solid var(--text-color);
-  transform: rotate(45deg);
-}
-
-.expand-icon::before {
-  content: '';
-  width: 22px;
-  height: 2px;
-  background-color: var(--text-color);
-  position: absolute;
-  top: 11px;
-  left: 3px;
 }
 
 .option-icon {

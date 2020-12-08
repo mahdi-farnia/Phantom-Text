@@ -56,7 +56,12 @@ nativeTheme.on('updated', () => {
 });
 
 // IPC
-require('./modules/ipc')(sendToMain);
+require('./modules/ipc')({
+  sendToMain,
+  setAlwaysOnTop(flag) {
+    mainWindow.setAlwaysOnTop(flag, 'pop-up-menu');
+  }
+});
 
 // Send Message To Main Window
 function sendToMain(channel, ...data) {

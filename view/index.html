@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="styles/menu.css" />
     <link rel="stylesheet" href="styles/main.css" />
     <link rel="stylesheet" href="styles/modal.css" />
+    <link rel="stylesheet" href="styles/left-panel.css" />
     <!-- Clear module for using jquery -->
     <script>
       if (typeof module === 'object') {
@@ -17,18 +18,16 @@
     <script src="js/index.js"></script>
     <script src="js/theme.js"></script>
     <script src="js/modal.js"></script>
+    <script src="js/left-panel.js"></script>
     <style id="theme_settings"></style>
   </head>
   <body>
     <nav id="menu" class="flex-between flex-column pos-relative">
       <ul>
-        <li id="expand-menu" title="Expand Menu">
-          <label class="icon expand-icon pos-relative fill-parent"> </label>
-        </li>
-        <li id="app-options" title="Options">
+        <li id="nav_app-options" title="Options">
           <label class="icon option-icon pos-relative fill-parent"> </label>
         </li>
-        <li id="saved-script" title="Saved Scripts">
+        <li id="nav_saved-script" title="Saved Scripts">
           <label class="icon script-icon"></label>
         </li>
       </ul>
@@ -41,11 +40,69 @@
           />
           <label class="icon change_theme-icon pos-relative"></label>
         </li>
-        <li title="About" id="about_app">
+        <li title="About & Help" id="about_app">
           <label class="icon about-icon fill-parent pos-relative"></label>
         </li>
       </ul>
     </nav>
+    <aside id="left-panel" class="pos-relative">
+      <div class="tracker flex-center">
+        <section id="panel_options-section">
+          <header class="dis-select">
+            <h3>Options</h3>
+          </header>
+          <div
+            class="option-wrapper pointer"
+            title="Use Realtime Encode and Decode"
+          >
+            <div class="pos-relative option-checkbox">
+              <input
+                type="checkbox"
+                id="use_realtime_transfer"
+                class="change_theme-button fill-parent pointer"
+                checked
+              />
+              <label class="icon change_theme-icon pos-relative"></label>
+            </div>
+            <label for="use_realtime_transfer" class="option-label"
+              >Realtime Encode/Decode</label
+            >
+          </div>
+          <div class="option-wrapper pointer" title="Window Stick On Front">
+            <div class="pos-relative option-checkbox">
+              <input
+                type="checkbox"
+                id="use_always-on-top"
+                class="change_theme-button fill-parent pointer"
+              />
+              <label class="icon change_theme-icon pos-relative"></label>
+            </div>
+            <label for="use_always-on-top" class="option-label"
+              >Window Always On Top</label
+            >
+          </div>
+        </section>
+        <section id="panel_saved-scripts">
+          <header class="dis-select">
+            <h3>Saved Scripts</h3>
+          </header>
+          <ul id="saved-scripts"></ul>
+        </section>
+      </div>
+      <div class="dots flex-center">
+        <span
+          title="Options"
+          class="dot active pointer"
+          id="dot_options"
+        ></span>
+        &nbsp;&nbsp;
+        <span
+          title="Saved Scripts"
+          class="dot pointer"
+          id="dot_saved-script"
+        ></span>
+      </div>
+    </aside>
     <main class="flex-center flex-column pos-relative">
       <aside id="modal">
         <button id="modal_close">

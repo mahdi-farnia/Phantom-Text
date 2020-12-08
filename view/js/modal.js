@@ -11,6 +11,15 @@ $(() => {
 
   window.modal = {
     show: function ({ msg, header, duration }) {
+      // Set Another Timeout For Mutiple Modal
+      if (modalTimeout) {
+        clearTimeout(modalTimeout);
+
+        modalTimeout = setTimeout(() => {
+          modal.removeClass(showModalClass);
+        }, duration || 3000);
+      }
+
       modalHeader.text(header);
 
       if (msg.length > maximumMsgLength) {
