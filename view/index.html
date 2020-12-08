@@ -114,7 +114,10 @@
       </aside>
       <!-- Encode -->
       <section class="field-section flex-center flex-column">
-        <header class="pos-relative field-toolbar flex-between">
+        <header
+          class="pos-relative field-toolbar flex-between"
+          id="encode_header"
+        >
           <div class="fast-switch-container flex-center">
             <div class="fast-switch-wrapper pos-relative">
               <input
@@ -127,11 +130,13 @@
             <label for="use_fast_encode">Use Fast Encode</label>
           </div>
           <ul class="field-action-menu flex-center">
-            <li id="field_copy" class="pointer">
-              <button class="action-button">Copy</button>
+            <li class="pointer">
+              <button id="encode_field_copy" class="action-button">Copy</button>
             </li>
-            <li id="field_clear" class="pointer">
-              <button class="action-button">Clear All</button>
+            <li class="pointer">
+              <button id="encode_field_clear" class="action-button">
+                Clear All
+              </button>
             </li>
           </ul>
         </header>
@@ -143,7 +148,10 @@
       </section>
       <!-- Decode -->
       <section class="field-section flex-center flex-column">
-        <header class="pos-relative field-toolbar flex-between">
+        <header
+          class="pos-relative field-toolbar flex-between"
+          id="decode_header"
+        >
           <div class="fast-switch-container flex-center">
             <div class="fast-switch-wrapper pos-relative">
               <input
@@ -156,11 +164,13 @@
             <label for="use_fast_decode">Use Fast Decode</label>
           </div>
           <ul class="field-action-menu flex-center">
-            <li id="field_copy" class="pointer">
-              <button class="action-button">Copy</button>
+            <li class="pointer">
+              <button id="decode_field_copy" class="action-button">Copy</button>
             </li>
-            <li id="field_clear" class="pointer">
-              <button class="action-button">Clear All</button>
+            <li class="pointer">
+              <button id="decode_field_clear" class="action-button">
+                Clear All
+              </button>
             </li>
           </ul>
         </header>

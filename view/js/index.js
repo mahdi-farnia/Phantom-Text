@@ -22,6 +22,72 @@ $(() => {
   input.on('input', encodeInputText);
   output.on('input', decodeInputText);
 
+  // Header Actions
+  const encodeHeader = $('#encode_header'),
+    decodeHeader = $('#decode_header'),
+    useFastEncode = 'use_fast_encode',
+    copyEncoded = 'encode_field_copy',
+    useFastDecode = 'use_fast_decode',
+    copyDecoded = 'decode_field_copy',
+    clearEncoded = 'encode_field_clear',
+    clearDecoded = 'decode_field_clear';
+  // Read Options
+  let isFastEncodeEnabled = false,
+    isFastDecodeEnabled = false;
+
+  encodeHeader.on('click', ({ target }) => {
+    const $target = $(target);
+
+    switch ($target.attr('id')) {
+      case useFastEncode:
+        useFastEncodeHandler.call($target);
+        return;
+
+      case copyEncoded:
+        clipboard.writeText(input.val().toString());
+
+        modal.show({
+          msg: 'Field Copied',
+          header: 'Encode',
+          duration: 1500
+        });
+        return;
+
+      case clearEncoded:
+        input.val('');
+
+        modal.show({ msg: 'Field Cleared', header: 'Encode', duration: 1500 });
+        return;
+
+      default:
+        return;
+    }
+  });
+
+  decodeHeader.on('click', ({ target }) => {
+    const $target = $(target);
+    switch ($target.attr('id')) {
+      case useFastDecode:
+        useFastDecodeHandler.call($target);
+        return;
+
+      case copyDecoded:
+        clipboard.writeText(output.val().toString());
+
+        modal.show({ msg: 'Field Copied', header: 'Encode', duration: 1500 });
+        return;
+
+      case clearDecoded:
+        output.val('');
+
+        modal.show({ msg: 'Field Cleared', header: 'Decode', duration: 1500 });
+        return;
+
+      default:
+        return;
+    }
+  });
+
   // Listen For Realtime Option Change
   $(document).on('realtime-change', function ({ isActive }) {
     if (isActive) {
@@ -31,42 +97,6 @@ $(() => {
       input.off('input', encodeInputText);
       output.off('input', decodeInputText);
     }
-  });
-
-  // Read Options
-  const useFastEncode = $('#use_fast_encode'),
-    useFastDecode = $('#use_fast_decode');
-  let isFastEncodeEnabled = false,
-    isFastDecodeEnabled = false;
-
-  useFastEncode.on('click', function () {
-    // Turn Off Fast Decode
-    if (isFastDecodeEnabled) useFastDecode.trigger('click');
-
-    isFastEncodeEnabled = $(this).prop('checked');
-
-    if (isFastEncodeEnabled) ipc.on(Events.BROWSER_FOCUSED, fastEncode);
-    else ipc.off(Events.BROWSER_FOCUSED, fastEncode);
-
-    modal.show({
-      msg: `Fast Encode Is Now ${isFastEncodeEnabled ? 'On' : 'Off'}`,
-      header: 'Fast Encode'
-    });
-  });
-
-  useFastDecode.on('click', function () {
-    // Turn Off Fast Encode
-    if (isFastEncodeEnabled) useFastEncode.trigger('click');
-
-    isFastDecodeEnabled = $(this).prop('checked');
-
-    if (isFastDecodeEnabled) ipc.on(Events.BROWSER_FOCUSED, fastDecode);
-    else ipc.off(Events.BROWSER_FOCUSED, fastDecode);
-
-    modal.show({
-      msg: `Fast Decode Is Now ${isFastDecodeEnabled ? 'On' : 'Off'}`,
-      header: 'Fast Decode'
-    });
   });
 
   // Get Encode
@@ -141,5 +171,43 @@ $(() => {
     ipc.send(Events.REQUEST_DECODE, data);
 
     copyTextToClipboard = true;
+  }
+
+  function useFastEncodeHandler() {
+    // Turn Off Fast Decode
+    if (isFastDecodeEnabled) {
+      const fastDecodeCheckbox = $('#' + useFastDecode);
+      fastDecodeCheckbox.prop('checked', false);
+      useFastDecodeHandler.call(fastDecodeCheckbox);
+    }
+
+    isFastEncodeEnabled = this.prop('checked');
+
+    if (isFastEncodeEnabled) ipc.on(Events.BROWSER_FOCUSED, fastEncode);
+    else ipc.off(Events.BROWSER_FOCUSED, fastEncode);
+
+    modal.show({
+      msg: `Fast Encode Is Now ${isFastEncodeEnabled ? 'On' : 'Off'}`,
+      header: 'Fast Encode'
+    });
+  }
+
+  function useFastDecodeHandler() {
+    // Turn Off Fast Encode
+    if (isFastEncodeEnabled) {
+      const fastEncodeCheckbox = $('#' + useFastEncode);
+      fastEncodeCheckbox.prop('checked', false);
+      useFastEncodeHandler.call(fastEncodeCheckbox);
+    }
+
+    isFastDecodeEnabled = this.prop('checked');
+
+    if (isFastDecodeEnabled) ipc.on(Events.BROWSER_FOCUSED, fastDecode);
+    else ipc.off(Events.BROWSER_FOCUSED, fastDecode);
+
+    modal.show({
+      msg: `Fast Decode Is Now ${isFastDecodeEnabled ? 'On' : 'Off'}`,
+      header: 'Fast Decode'
+    });
   }
 });
