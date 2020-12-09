@@ -16,7 +16,7 @@
 }
 
 #left-panel .tracker section {
-  width: 50%;
+  width: calc(100% / 3);
   height: 100%;
 }
 
@@ -25,7 +25,11 @@
 }
 
 #left-panel.saved-scripts .tracker {
-  transform: translateX(-50%);
+  transform: translateX(calc(100% / -3));
+}
+
+#left-panel.about-app .tracker {
+  transform: translateX(calc(200% / -3));
 }
 
 #left-panel header {
@@ -37,7 +41,7 @@
 }
 
 #left-panel .tracker {
-  width: 200%;
+  width: 300%;
   height: 100%;
 }
 
@@ -81,7 +85,8 @@
 }
 
 #left-panel.options #dot_options,
-#left-panel.saved-scripts #dot_saved-script {
+#left-panel.saved-scripts #dot_saved-script,
+#left-panel.about-app #dot_about-app {
   opacity: 1;
   cursor: default;
 }

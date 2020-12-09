@@ -1,15 +1,18 @@
 $(() => {
   const leftPanel = $('#left-panel');
+  const leftPanelBaseClass = leftPanel.attr('class');
   const classList = {
     openPanel: 'open',
     goOptions: 'options',
     goSavedScripts: 'saved-scripts',
+    goAbout: 'about-app',
     showManualTransferButton: 'use-manual-button-transfer'
   };
 
   // Toggle Left Panel Buttons
-  const options = 'nav_app-options';
-  const savedScript = 'nav_saved-script';
+  const options = 'nav_app-options',
+    savedScript = 'nav_saved-script',
+    about = 'nav_about-app';
 
   $('#menu').on('click', ({ target }) => {
     switch ($(target).attr('id')) {
@@ -22,11 +25,10 @@ $(() => {
           return;
         }
 
-        leftPanel.addClass(classList.openPanel);
-
-        leftPanel
-          .removeClass(classList.goSavedScripts)
-          .addClass(classList.goOptions);
+        leftPanel.attr(
+          'class',
+          `${leftPanelBaseClass} ${classList.openPanel} ${classList.goOptions}`
+        );
         return;
 
       case savedScript:
@@ -38,11 +40,26 @@ $(() => {
           return;
         }
 
-        leftPanel.addClass(classList.openPanel);
+        leftPanel.attr(
+          'class',
+          `${leftPanelBaseClass} ${classList.openPanel} ${classList.goSavedScripts}`
+        );
+        return;
 
-        leftPanel
-          .removeClass(classList.goOptions)
-          .addClass(classList.goSavedScripts);
+      case about:
+        if (
+          leftPanel.hasClass(classList.goAbout) &&
+          leftPanel.hasClass(classList.openPanel)
+        ) {
+          leftPanel.removeClass(classList.openPanel);
+          return;
+        }
+
+        leftPanel.attr(
+          'class',
+          `${leftPanelBaseClass} ${classList.openPanel} ${classList.goAbout}`
+        );
+
         return;
     }
   });
@@ -51,6 +68,7 @@ $(() => {
     toggleWindowAlwaysOnTop = 'use_always-on-top',
     goSavedScripts = 'dot_saved-script',
     goOptions = 'dot_options',
+    goAbout = 'dot_about-app',
     $body = $(document.body);
 
   const RealtimeStatusEvent = new $.Event('realtime-change', {
@@ -91,15 +109,24 @@ $(() => {
         return;
 
       case goSavedScripts:
-        $(this)
-          .removeClass(classList.goOptions)
-          .addClass(classList.goSavedScripts);
+        $(this).attr(
+          'class',
+          `${leftPanelBaseClass} ${classList.openPanel} ${classList.goSavedScripts}`
+        );
         return;
 
       case goOptions:
-        $(this)
-          .removeClass(classList.goSavedScripts)
-          .addClass(classList.goOptions);
+        $(this).attr(
+          'class',
+          `${leftPanelBaseClass} ${classList.openPanel} ${classList.goOptions}`
+        );
+        return;
+
+      case goAbout:
+        $(this).attr(
+          'class',
+          `${leftPanelBaseClass} ${classList.openPanel} ${classList.goAbout}`
+        );
         return;
     }
   });

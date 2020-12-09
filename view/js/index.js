@@ -22,6 +22,35 @@ $(() => {
   input.on('input', encodeInputText);
   output.on('input', decodeInputText);
 
+  // Prevent Behaviour & Shortcuts
+  const TabKey = '  ';
+
+  $(input)
+    .add(output)
+    .on('keydown', function (e) {
+      switch (e.key) {
+        case 'Tab':
+          e.preventDefault();
+          const val = $(this).val().toString(),
+            { selectionStart, selectionEnd } = this;
+
+          this.value = `${val.slice(0, selectionStart)}${TabKey}${val.slice(
+            selectionEnd
+          )}`;
+
+          this.selectionStart = this.selectionEnd =
+            selectionEnd + TabKey.length;
+          return;
+
+        case 'Enter':
+          if (e.shiftKey && useManualTransferButton) {
+            e.preventDefault();
+            encodeInputText.call($(this));
+          }
+          return;
+      }
+    });
+
   // Header Actions
   const encodeHeader = $('#encode_header'),
     decodeHeader = $('#decode_header'),
