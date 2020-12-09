@@ -36,19 +36,26 @@
   opacity: 1;
 }
 
-#menu li:hover .expand-icon {
-  animation-name: nav_move-arrow;
+#menu li:hover .setting-icon::after {
+  content: '';
+  width: 1px;
+  height: 26px;
+  background-color: var(--text-color);
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  animation: nav_setting-icon 0.4s linear infinite;
 }
 
-@keyframes nav_move-arrow {
+@keyframes nav_setting-icon {
   0%,
   100% {
-    transform: translateX(0);
+    opacity: 0;
   }
 
-  50%,
-  80% {
-    transform: translateX(5px);
+  50% {
+    opacity: 1;
   }
 }
 

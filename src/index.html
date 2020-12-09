@@ -24,6 +24,9 @@
   <body>
     <nav id="menu" class="flex-between flex-column pos-relative">
       <ul>
+        <li id="nav_app-settings" title="Settings">
+          <label class="icon setting-icon pos-relative fill-parent">T</label>
+        </li>
         <li id="nav_app-options" title="Options">
           <label class="icon option-icon pos-relative fill-parent"> </label>
         </li>
@@ -47,6 +50,9 @@
     </nav>
     <aside id="left-panel" class="pos-relative">
       <div class="tracker flex-center">
+        <section>
+          <header class="dis-select"><h3>Setting</h3></header>
+        </section>
         <section id="panel_options-section">
           <header class="dis-select">
             <h3>Options</h3>
@@ -97,10 +103,12 @@
       </div>
       <div class="dots flex-center">
         <span
-          title="Options"
+          title="Settings"
           class="dot active pointer"
-          id="dot_options"
+          id="dot_app-settings"
         ></span>
+        &nbsp;&nbsp;
+        <span title="Options" class="dot pointer" id="dot_options"></span>
         &nbsp;&nbsp;
         <span
           title="Saved Scripts"

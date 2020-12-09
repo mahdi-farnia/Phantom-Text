@@ -3,6 +3,7 @@ $(() => {
   const leftPanelBaseClass = leftPanel.attr('class');
   const classList = {
     openPanel: 'open',
+    goSetting: 'setting',
     goOptions: 'options',
     goSavedScripts: 'saved-scripts',
     goAbout: 'about-app',
@@ -10,12 +11,29 @@ $(() => {
   };
 
   // Toggle Left Panel Buttons
-  const options = 'nav_app-options',
+  const setting = 'nav_app-settings',
+    options = 'nav_app-options',
     savedScript = 'nav_saved-script',
     about = 'nav_about-app';
 
   $('#menu').on('click', ({ target }) => {
     switch ($(target).attr('id')) {
+      case setting:
+        if (
+          leftPanel.hasClass(classList.goSetting) &&
+          leftPanel.hasClass(classList.openPanel)
+        ) {
+          leftPanel.removeClass(classList.openPanel);
+          return;
+        }
+
+        leftPanel.attr(
+          'class',
+          `${leftPanelBaseClass} ${classList.openPanel} ${classList.goSetting}`
+        );
+
+        return;
+
       case options:
         if (
           leftPanel.hasClass(classList.goOptions) &&
@@ -66,6 +84,7 @@ $(() => {
 
   const toggleRealtimeTransfer = 'use_realtime_transfer',
     toggleWindowAlwaysOnTop = 'use_always-on-top',
+    goSetting = 'dot_app-settings',
     goSavedScripts = 'dot_saved-script',
     goOptions = 'dot_options',
     goAbout = 'dot_about-app',
@@ -106,6 +125,13 @@ $(() => {
         });
 
         ipc.send(Events.ALWAYS_ON_TOP_CHANGE, isOn);
+        return;
+
+      case goSetting:
+        $(this).attr(
+          'class',
+          `${leftPanelBaseClass} ${classList.openPanel} ${classList.goSetting}`
+        );
         return;
 
       case goSavedScripts:

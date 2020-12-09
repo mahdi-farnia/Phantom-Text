@@ -12,24 +12,30 @@
 }
 
 #left-panel .tracker {
+  width: 400%;
+  height: 100%;
   transition: transform 0.3s ease;
 }
 
 #left-panel .tracker section {
-  width: calc(100% / 3);
+  width: calc(100% / 4);
   height: 100%;
 }
 
-#left-panel.options .tracker {
+#left-panel.setting .tracker {
   transform: translateX(0);
 }
 
+#left-panel.options .tracker {
+  transform: translateX(-25%);
+}
+
 #left-panel.saved-scripts .tracker {
-  transform: translateX(calc(100% / -3));
+  transform: translateX(-50%);
 }
 
 #left-panel.about-app .tracker {
-  transform: translateX(calc(200% / -3));
+  transform: translateX(-75%);
 }
 
 #left-panel header {
@@ -38,11 +44,6 @@
   margin: 10px 0;
   padding-left: 20px;
   opacity: 0.75;
-}
-
-#left-panel .tracker {
-  width: 300%;
-  height: 100%;
 }
 
 #left-panel .option-wrapper {
@@ -84,6 +85,7 @@
   opacity: 0.5;
 }
 
+#left-panel.setting #dot_app-settings,
 #left-panel.options #dot_options,
 #left-panel.saved-scripts #dot_saved-script,
 #left-panel.about-app #dot_about-app {
