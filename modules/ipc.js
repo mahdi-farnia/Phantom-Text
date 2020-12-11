@@ -13,19 +13,17 @@ ipcMain.once(Events.APP_LOADED, () => {
 });
 
 // Get Key
-ipcMain.on(Events.REGISTER_KEY, (e, key) => {
-  setKey(key);
-});
+ipcMain.on(Events.REGISTER_KEY, (e, key) => setKey((key ?? '').toString()));
 
 // Encode
-ipcMain.on(Events.REQUEST_ENCODE, (e, data) => {
-  sendToMain(Events.GET_ENCODED, encode(data));
-});
+ipcMain.on(Events.REQUEST_ENCODE, (e, data) =>
+  sendToMain(Events.GET_ENCODED, encode(data))
+);
 
 // Decode
-ipcMain.on(Events.REQUEST_DECODE, (e, data) => {
-  sendToMain(Events.GET_DECODED, decode(data));
-});
+ipcMain.on(Events.REQUEST_DECODE, (e, data) =>
+  sendToMain(Events.GET_DECODED, decode(data))
+);
 
 ipcMain.on(Events.ALWAYS_ON_TOP_CHANGE, (e, isActive) =>
   setAlwaysOnTop(isActive)

@@ -61,12 +61,25 @@ require('./modules/ipc')({
   setAlwaysOnTop(flag) {
     mainWindow.setAlwaysOnTop(flag, 'pop-up-menu');
   },
-  setMinSize({ height, width }) {
-    mainWindow.setMinimumSize(width, height);
-  }
+  setMinSize
 });
 
 // Send Message To Main Window
 function sendToMain(channel, ...data) {
   mainWindow.webContents.send(channel, ...data);
+}
+
+function setMinSize({ height, width }) {
+  const { height: h, width: w } = mainWindow.getBounds(),
+    Bounds = {
+      width,
+      height
+    };
+
+  if (w > width) Bounds.width = w;
+
+  if (h > height) Bounds.height = h;
+
+  mainWindow.setBounds(Bounds);
+  mainWindow.setMinimumSize(width, height);
 }
