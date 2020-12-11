@@ -1,4 +1,4 @@
-#modal {
+#app_modal {
   width: 30%;
   min-width: 240px;
   max-width: 1024px;
@@ -19,7 +19,7 @@
 
 #modal_header {
   width: 100%;
-  text-align: left;
+  text-align: center;
   padding: 5px 28px 5px 12px;
 }
 
@@ -31,6 +31,7 @@
   font-size: 12px;
   overflow: hidden;
   padding: 0 5px 0 8px;
+  white-space: pre;
 }
 
 #modal_close {
@@ -62,7 +63,7 @@
   transform: rotate(-45deg);
 }
 
-#modal.show {
+#app_modal.show {
   opacity: 1;
   transform: translate(-50%, 0);
 }

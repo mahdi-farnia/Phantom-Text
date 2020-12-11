@@ -82,7 +82,10 @@ $(() => {
     }
   });
 
-  const toggleRealtimeTransfer = 'use_realtime_transfer',
+  const $globalKeyInput = $('#global_key'),
+    copyGlobalKey = 'copy_global_key',
+    genKey = 'generate_key',
+    toggleRealtimeTransfer = 'use_realtime_transfer',
     toggleWindowAlwaysOnTop = 'use_always-on-top',
     goSetting = 'dot_app-settings',
     goSavedScripts = 'dot_saved-script',
@@ -96,6 +99,30 @@ $(() => {
 
   leftPanel.on('click', function ({ target }) {
     switch ($(target).attr('id')) {
+      case copyGlobalKey:
+        const val = $globalKeyInput.val().toString();
+
+        if (val !== '') {
+          clipboard.writeText(val);
+
+          modal.show({
+            header: 'Key',
+            msg: 'Key Copied',
+            duration: 1000
+          });
+        } else {
+          modal.show({
+            header: 'Key',
+            msg: 'Nothing To Copy',
+            duration: 1000
+          });
+        }
+        return;
+
+      case genKey:
+        ipc.send(Events.GENERATE_KEY);
+        return;
+
       case toggleRealtimeTransfer:
         let isActive = (RealtimeStatusEvent.isActive = $(target).prop(
           'checked'
@@ -155,5 +182,11 @@ $(() => {
         );
         return;
     }
+  });
+
+  // Get Generated Key
+  ipc.on(Events.GENERATED_KEY, (e, key) => {
+    $globalKeyInput.val(key);
+    $globalKeyInput.trigger('input');
   });
 });

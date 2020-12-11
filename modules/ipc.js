@@ -1,6 +1,6 @@
 const { ipcMain } = require('electron/main');
 const Events = require('./Events');
-const { encode, decode } = require('./crypto');
+const { encode, decode, setKey, genKey } = require('./crypto');
 
 /**
  * @type {(channel: string, ...data: any[]) => void}
@@ -10,6 +10,11 @@ let sendToMain, setAlwaysOnTop, setMinSize;
 // Start App
 ipcMain.once(Events.APP_LOADED, () => {
   sendToMain(Events.SYSTEM_INFO, { isDarwin: process.platform === 'darwin' });
+});
+
+// Get Key
+ipcMain.on(Events.REGISTER_KEY, (e, key) => {
+  setKey(key);
 });
 
 // Encode
@@ -47,6 +52,10 @@ ipcMain.on(Events.SET_MINIMUM_SIZE, (e, { isLarger }) => {
     });
   }
 });
+
+ipcMain.on(Events.GENERATE_KEY, () =>
+  sendToMain(Events.GENERATED_KEY, genKey())
+);
 
 // Import Using Require :))))
 module.exports = function ({

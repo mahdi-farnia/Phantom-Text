@@ -1,5 +1,5 @@
 $(() => {
-  const modal = $('#modal');
+  const modalEl = $('#app_modal');
   const modalHeader = $('#modal_header');
   const modalMsg = $('#modal_msg');
   const modalCloser = $('#modal_close');
@@ -9,15 +9,14 @@ $(() => {
 
   let modalTimeout;
 
-  window.modal = {
-    show: function ({ msg, header, duration }) {
+  const modal = {
+    show({ msg, header, duration }) {
+      const time = duration || 3000;
+
       // Set Another Timeout For Mutiple Modal
       if (modalTimeout) {
         clearTimeout(modalTimeout);
-
-        modalTimeout = setTimeout(() => {
-          modal.removeClass(showModalClass);
-        }, duration || 3000);
+        modalTimeout = setTimeout(this.close, time);
       }
 
       modalHeader.text(header);
@@ -28,17 +27,20 @@ $(() => {
         modalMsg.text(msg);
       }
 
-      modalCloser.on('click', () => {
-        clearTimeout(modalTimeout);
-        modalTimeout = null;
-        modal.removeClass(showModalClass);
-      });
+      modalCloser.on('click', this.close);
 
-      modal.addClass(showModalClass);
+      modalEl.addClass(showModalClass);
 
-      modalTimeout = setTimeout(() => {
-        modal.removeClass(showModalClass);
-      }, duration || 3000);
+      modalTimeout = setTimeout(this.close, time);
+    },
+    close() {
+      clearTimeout(modalTimeout);
+
+      modalTimeout = null;
+
+      modalEl.removeClass(showModalClass);
     }
   };
+
+  window.modal = modal;
 });

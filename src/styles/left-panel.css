@@ -55,6 +55,50 @@
   user-select: none;
 }
 
+/* Setting */
+#panel_setting-section .setting-container {
+  width: 100%;
+  padding-left: 12px;
+}
+
+#panel_setting-section .input-container {
+  width: 100%;
+  height: 40px;
+  padding: 5px 80px 5px 0;
+  margin: 10px 0;
+}
+
+#panel_setting-section .input {
+  box-shadow: var(--button-shadow-reverse);
+  border-radius: 1rem;
+  padding-left: 12px;
+}
+
+#panel_setting-section .btn {
+  box-shadow: var(--button-shadow);
+  border-radius: 0.5rem;
+}
+
+#panel_setting-section .copy-btn {
+  width: 55px;
+  height: 30px;
+  position: absolute;
+  right: 15px;
+  top: 5px;
+}
+
+#panel_setting-section .gen-btn {
+  width: 110px;
+  height: 35px;
+  margin-top: 8px;
+  margin-left: 10px;
+}
+
+#panel_setting-section .btn:active {
+  box-shadow: var(--button-shadow-reverse);
+}
+
+/* Options */
 #panel_options-section .option-checkbox {
   width: 40px;
   transform: scale(0.9);
@@ -64,9 +108,6 @@
   font-size: 15px;
   margin-left: 8px;
   cursor: inherit;
-}
-
-#panel_saved-scripts {
 }
 
 #left-panel .dots {

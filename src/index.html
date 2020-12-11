@@ -50,8 +50,25 @@
     </nav>
     <aside id="left-panel" class="pos-relative">
       <div class="tracker flex-center">
-        <section>
+        <section id="panel_setting-section" class="pos-relative">
           <header class="dis-select"><h3>Setting</h3></header>
+          <div class="setting-container">
+            <h4>Insert Key</h4>
+            <div class="input-container pos-relative">
+              <input
+                type="text"
+                id="global_key"
+                class="input fill-parent"
+                placeholder="Key"
+              />
+              <button id="copy_global_key" class="btn copy-btn pointer">
+                Copy
+              </button>
+            </div>
+            <button id="generate_key" class="btn gen-btn pointer">
+              Generate Key
+            </button>
+          </div>
         </section>
         <section id="panel_options-section">
           <header class="dis-select">
@@ -124,7 +141,7 @@
       </div>
     </aside>
     <main class="flex-center flex-column pos-relative">
-      <aside id="modal">
+      <aside id="app_modal">
         <button id="modal_close">
           <span class="line-1 dis-select"></span>
           <span class="line-2 dis-select"></span>

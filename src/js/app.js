@@ -18,6 +18,19 @@ $(() => {
   const output = $('#output_field');
   let copyTextToClipboard = false;
 
+  const keyInput = $('#global_key');
+  let globalKey;
+
+  keyInput.on('input', function () {
+    const val = $(this).val().toString();
+
+    if (val.trim() !== '') {
+      globalKey = val;
+      ipc.send(Events.REGISTER_KEY, val);
+      encodeInputText.call(input);
+    }
+  });
+
   // Real time encode
   input.on('input', encodeInputText);
   output.on('input', decodeInputText);
@@ -67,6 +80,7 @@ $(() => {
     isFastDecodeEnabled = false,
     useManualTransferButton = false;
 
+  // Header
   encodeHeader.on('click', ({ target }) => {
     const $target = $(target);
 
@@ -80,22 +94,29 @@ $(() => {
         return;
 
       case copyEncoded:
-        clipboard.writeText(input.val().toString());
+        const val = input.val().toString();
+        if (val) {
+          clipboard.writeText(val);
 
-        modal.show({
-          msg: 'Field Copied',
-          header: 'Encode',
-          duration: 1500
-        });
+          modal.show({
+            msg: 'Field Copied',
+            header: 'Encode',
+            duration: 1500
+          });
+        } else {
+          modal.show({
+            msg: 'Nothing To Copy',
+            header: 'Encode',
+            duration: 1500
+          });
+        }
+
         return;
 
       case clearEncoded:
         input.val('');
 
         modal.show({ msg: 'Field Cleared', header: 'Encode', duration: 1500 });
-        return;
-
-      default:
         return;
     }
   });
@@ -112,9 +133,19 @@ $(() => {
         return;
 
       case copyDecoded:
-        clipboard.writeText(output.val().toString());
+        const val = output.val().toString();
 
-        modal.show({ msg: 'Field Copied', header: 'Encode', duration: 1500 });
+        if (val) {
+          clipboard.writeText(val);
+          modal.show({ msg: 'Field Copied', header: 'Decode', duration: 1500 });
+        } else {
+          modal.show({
+            msg: 'Nothing To Copy',
+            header: 'Decode',
+            duration: 1500
+          });
+        }
+
         return;
 
       case clearDecoded:
@@ -146,14 +177,18 @@ $(() => {
   // Get Encode
   ipc.on(Events.GET_ENCODED, (e, { data, error }) => {
     if (copyTextToClipboard) {
-      // if input was empty
       if (!error) {
         clipboard.writeText(data);
 
         modal.show({
           msg: 'Text Encoded',
           header: 'Fast Encode',
-          duration: 2000
+          duration: 1500
+        });
+      } else {
+        modal.show({
+          msg: 'Cannot Encode Text',
+          header: 'Encode Error'
         });
       }
 
@@ -167,19 +202,26 @@ $(() => {
 
   // Get Decode
   ipc.on(Events.GET_DECODED, (e, { data, error }) => {
+    copyTextToClipboard = false;
+
+    // If Non-UTF-8 Decoded Prevent Copy -> ""
+    if (error) {
+      modal.show({
+        header: 'Decode Error',
+        msg: "Cannot Decode Text\nIt May Use Another Key Or It's Invalid"
+      });
+
+      return;
+    }
+
     if (copyTextToClipboard) {
-      // If Non-UTF-8 Decoded Prevent Copy -> ""
-      if (!error) {
-        clipboard.writeText(data);
+      clipboard.writeText(data);
 
-        modal.show({
-          msg: 'Text Decoded',
-          header: 'Fast Decode',
-          duration: 2000
-        });
-      }
-
-      copyTextToClipboard = false;
+      modal.show({
+        msg: 'Text Decoded',
+        header: 'Fast Decode',
+        duration: 1500
+      });
 
       return;
     }
@@ -189,22 +231,45 @@ $(() => {
 
   /** Fn */
 
+  /**
+   * @param {'encode' | 'decode'} which
+   * @param {any} data
+   */
+  function requestTransform(which, data) {
+    if (globalKey) {
+      switch (which) {
+        case 'encode':
+          ipc.send(Events.REQUEST_ENCODE, data);
+          return;
+
+        case 'decode':
+          ipc.send(Events.REQUEST_DECODE, data);
+          return;
+      }
+    } else {
+      modal.show({
+        header: 'Transform Error',
+        msg: 'Please Enter Key First\nYou Can Enter Key In Setting'
+      });
+    }
+  }
+
   function encodeInputText() {
     const txt = $(this).val().toString();
 
-    ipc.send(Events.REQUEST_ENCODE, txt);
+    requestTransform('encode', txt);
   }
 
   function decodeInputText() {
     const txt = $(this).val().toString();
 
-    ipc.send(Events.REQUEST_DECODE, txt);
+    requestTransform('decode', txt);
   }
 
   async function fastEncode() {
     const data = await clipboard.readText();
 
-    ipc.send(Events.REQUEST_ENCODE, data);
+    requestTransform('encode', data);
 
     copyTextToClipboard = true;
   }
@@ -212,7 +277,7 @@ $(() => {
   async function fastDecode() {
     const data = await clipboard.readText();
 
-    ipc.send(Events.REQUEST_DECODE, data);
+    requestTransform('decode', data);
 
     copyTextToClipboard = true;
   }

@@ -12,5 +12,8 @@ module.exports = {
   GET_ENCODED: 'data::encoded_text',
   GET_DECODED: 'data:decoded_text',
   ALWAYS_ON_TOP_CHANGE: 'event::window_always-on-top-change',
-  SET_MINIMUM_SIZE: 'event::view_content_size_changed'
+  SET_MINIMUM_SIZE: 'event::view_content_size_changed',
+  REGISTER_KEY: 'data::register_new_key',
+  GENERATE_KEY: 'event::request_generate_key',
+  GENERATED_KEY: 'data::generated_key'
 };
